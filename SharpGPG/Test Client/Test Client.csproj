@@ -51,7 +51,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GPGTest\SharpGPG.csproj">
+    <ProjectReference Include="..\SharpGPG\SharpGPG.csproj">
       <Project>{6f0c7b07-fa54-43df-9e52-e4dd989f0875}</Project>
       <Name>SharpGPG</Name>
     </ProjectReference>
