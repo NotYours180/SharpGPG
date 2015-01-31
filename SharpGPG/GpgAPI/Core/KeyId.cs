@@ -39,7 +39,18 @@ namespace GpgApi
         /// <returns>true if the key id is valid; otherwise false.</returns>
         public static Boolean IsValid(String keyId)
         {
-            return keyId != null && keyId.Length == 16 && _regex.IsMatch(keyId);
+            if(keyId.Length == 40 && _regex.IsMatch(keyId))
+            {
+                return true;
+            }
+            else if (keyId.Length == 16 && _regex.IsMatch(keyId))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private readonly String _keyId;

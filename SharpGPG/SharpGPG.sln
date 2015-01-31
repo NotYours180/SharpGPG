@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPGTest", "GPGTest\GPGTest.csproj", "{6F0C7B07-FA54-43DF-9E52-E4DD989F0875}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpGPG", "GPGTest\SharpGPG.csproj", "{6F0C7B07-FA54-43DF-9E52-E4DD989F0875}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GpgAPI", "GpgAPI\GpgAPI.csproj", "{0EE5CBC1-F152-4AC7-8392-604013F654E6}"
 EndProject
