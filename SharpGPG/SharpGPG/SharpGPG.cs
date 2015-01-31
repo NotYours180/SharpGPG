@@ -58,6 +58,36 @@ namespace SharpGPG
 
         }
 
+        public string decryptString(string toDecrypt)
+        {
+            GpgInterface.ExePath = ExePath;
+
+            string path = Directory.GetCurrentDirectory() + "\\" + GetUniqueKey() + ".txt";
+            string pathout = path + ".out";
+
+            System.IO.File.WriteAllText(path, toDecrypt);
+
+            GpgDecrypt Decrypt = new GpgDecrypt(path, pathout);
+
+            Decrypt.AskPassphrase = GetPassword;
+
+            GpgInterfaceResult result = Decrypt.Execute();
+
+            System.IO.File.Delete(path);
+
+            if (result.Status == GpgInterfaceStatus.Success)
+            {
+                string toReturn = System.IO.File.ReadAllText(pathout);
+                System.IO.File.Delete(pathout);
+                return toReturn;
+            }
+            else
+            {
+                throw new Exception("Decryption Failed");
+            }
+
+        }
+
         public GpgImportKey importKey(string publickey)
         {
             GpgInterface.ExePath = ExePath;
