@@ -10,17 +10,25 @@ using GpgApi;
 
 namespace SharpGPG
 {
-    class Program
+    public class IGPGService : IGPG
     {
-        const string ExePath = @"C:\Program Files (x86)\GNU\GnuPG\pub\gpg2.exe";
-        const string defaultsign = "79B4DA8B36D17F856BA7288079AC04CAB334A781";
+        private string ExePath;
+        private string defaultsign;
+        private string password;
 
-        public static string encryptString(string toEncrypt, string target, string sign = defaultsign, CipherAlgorithm algorithm = CipherAlgorithm.Aes256, bool armour = true, bool hideuserid = false)
+        public IGPGService(string ExePath, string defaultsign, string password)
+        {
+            this.ExePath = ExePath;
+            this.defaultsign = defaultsign;
+            this.password = password;
+        }
+
+        public string encryptString(string toEncrypt, string target, string sign = null, CipherAlgorithm algorithm = CipherAlgorithm.Aes256, bool armour = true, bool hideuserid = false)
         {            
             List<KeyId> recipients = new List<KeyId>();
-            recipients.Add(new KeyId(target));
+            recipients.Add(new KeyId(target));            
 
-            KeyId signkey = new KeyId(sign);
+            KeyId signkey = new KeyId(defaultsign);
 
             GpgInterface.ExePath = ExePath;
 
@@ -30,6 +38,9 @@ namespace SharpGPG
             System.IO.File.WriteAllText(path, toEncrypt);
 
             GpgEncrypt encrypt = new GpgEncrypt(path, pathout, armour, hideuserid, signkey, recipients, algorithm);
+
+            if (password != null)
+                encrypt.AskPassphrase = GetPassword;
 
             GpgInterfaceResult result = encrypt.Execute();
 
@@ -48,7 +59,7 @@ namespace SharpGPG
 
         }
 
-        public static GpgImportKey importKey(string publickey)
+        public GpgImportKey importKey(string publickey)
         {
             GpgInterface.ExePath = ExePath;
             
@@ -74,9 +85,9 @@ namespace SharpGPG
             
         }
 
-        public static SecureString GetPassword(AskPassphraseInfo info)
+        public SecureString GetPassword(AskPassphraseInfo info)
         {
-            return GpgInterface.GetSecureStringFromString("a");
+            return GpgInterface.GetSecureStringFromString(password);
         }
 
         public static string GetUniqueKey(int maxSize = 16)
