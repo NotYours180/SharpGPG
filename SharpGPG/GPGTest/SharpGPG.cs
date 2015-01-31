@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GpgApi;
 using System.Security;
 using System.Security.Cryptography;
 using System.IO;
+using GpgApi;
 
 namespace SharpGPG
 {
@@ -43,7 +43,7 @@ namespace SharpGPG
             }
             else
             {
-                throw new Exception("Import Failed");
+                throw new Exception("Encryption Failed");
             }
 
         }
