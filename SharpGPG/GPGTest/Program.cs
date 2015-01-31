@@ -15,9 +15,8 @@ namespace SharpGPG
         const string ExePath = @"C:\Program Files (x86)\GNU\GnuPG\pub\gpg2.exe";
         const string defaultsign = "79B4DA8B36D17F856BA7288079AC04CAB334A781";
 
-        public static string encryptString(string toEncrypt, string target, string sign = defaultsign)
-        {
-            CipherAlgorithm algorithm = CipherAlgorithm.Aes256;
+        public static string encryptString(string toEncrypt, string target, string sign = defaultsign, CipherAlgorithm algorithm = CipherAlgorithm.Aes256, bool armour = true, bool hideuserid = false)
+        {            
             List<KeyId> recipients = new List<KeyId>();
             recipients.Add(new KeyId(target));
 
@@ -30,7 +29,7 @@ namespace SharpGPG
 
             System.IO.File.WriteAllText(path, toEncrypt);
 
-            GpgEncrypt encrypt = new GpgEncrypt(path, pathout, true, false, signkey, recipients, algorithm);
+            GpgEncrypt encrypt = new GpgEncrypt(path, pathout, armour, hideuserid, signkey, recipients, algorithm);
 
             GpgInterfaceResult result = encrypt.Execute();
 
