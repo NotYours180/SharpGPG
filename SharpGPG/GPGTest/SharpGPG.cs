@@ -32,15 +32,14 @@ namespace SharpGPG
 
             GpgInterface.ExePath = ExePath;
 
-            string path = Directory.GetCurrentDirectory() + GetUniqueKey() + ".txt";
+            string path = Directory.GetCurrentDirectory() + "\\" + GetUniqueKey() + ".txt";
             string pathout = path + ".out";
 
             System.IO.File.WriteAllText(path, toEncrypt);
 
             GpgEncrypt encrypt = new GpgEncrypt(path, pathout, armour, hideuserid, signkey, recipients, algorithm);
 
-            if (password != null)
-                encrypt.AskPassphrase = GetPassword;
+            encrypt.AskPassphrase = GetPassword;
 
             GpgInterfaceResult result = encrypt.Execute();
 

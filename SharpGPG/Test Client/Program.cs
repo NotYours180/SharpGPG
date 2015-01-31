@@ -11,7 +11,7 @@ namespace Test_Client
     {
         static void Main(string[] args)
         {
-            IGPGService gpg = new IGPGService(@"C:\Program Files (x86)\GNU\GnuPG\pub\gpg.exe", "79B4DA8B36D17F856BA7288079AC04CAB334A781", "testpassword");
+            IGPGService gpg = new IGPGService(@"C:\Program Files (x86)\GNU\GnuPG\gpg.exe", "79B4DA8B36D17F856BA7288079AC04CAB334A781", "testpassword");
 
             string test = gpg.encryptString("test text","DB99C147E15EB898C0D5C81635DB284E21D84A25");
 
